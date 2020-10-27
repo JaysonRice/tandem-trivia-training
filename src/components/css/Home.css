@@ -1,0 +1,11 @@
+.homeContainer{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.startTriviaContainer{
+    border: gainsboro 2px solid;
+    padding: 1em;
+}

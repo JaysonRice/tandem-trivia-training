@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
+import { Home } from "./Home"
 import { TriviaProvider } from "./providers/TriviaProvider"
+import "./css/Home.css"
 
 export const Dashboard = () => {
 
@@ -8,8 +10,7 @@ export const Dashboard = () => {
 
     const showHome = () => (
         <div className="homeContainer">
-            <p>Rendering</p>
-            {/* <Home setActiveView={setActiveView} /> */}
+            <Home setActiveView={setActiveView} />
         </div>
     )
 
@@ -36,7 +37,7 @@ export const Dashboard = () => {
         } else {
             setComponents(showResults)
         }
-    }, [])
+    }, [activeView])
 
     return (
         <div className="mainContainer">

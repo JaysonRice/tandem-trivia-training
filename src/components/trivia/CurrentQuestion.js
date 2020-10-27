@@ -9,8 +9,7 @@ export const CurrentQuestion = ({ setActiveView }) => {
     const { trivia } = useContext(TriviaContext)
     const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1)
     const [jumbledAnswers, setJumbledAnswers] = useState([])
-    const [correctAnswer, setCorrectAnswer] = useState('')
-
+    const [questionAnswered, setQuestionAnswered] = useState(false)
 
     const currentQuestion = trivia.find(question => question.id === currentQuestionNumber);
 
@@ -31,12 +30,6 @@ export const CurrentQuestion = ({ setActiveView }) => {
         }
         return arra1;
     }
-    // Keep track of the correct answer dor each question
-    useEffect(() => {
-        if (!!trivia) {
-            setCorrectAnswer(currentQuestion.correct)
-        }
-    }, [currentQuestionNumber])
 
     // Jumble all possible answers around
     useEffect(() => {
@@ -51,7 +44,21 @@ export const CurrentQuestion = ({ setActiveView }) => {
 
             setJumbledAnswers(shuffle(allAnswers))
         }
-    }, [currentQuestionNumber, trivia])
+    }, [currentQuestionNumber])
+
+    const checkAnswer = (chosenAnswer) => {
+        setQuestionAnswered(true)
+        if (chosenAnswer.answer === currentQuestion.correct) {
+            console.log("Correct")
+        } else {
+            console.log("Incorrect")
+        }
+    }
+
+    const nextQuestion = () => {
+        setQuestionAnswered(false)
+        setCurrentQuestionNumber(currentQuestionNumber + 1)
+    }
 
     if (!trivia) {
         return null
@@ -65,12 +72,17 @@ export const CurrentQuestion = ({ setActiveView }) => {
                 <div className="answersContainer">
 
                     {jumbledAnswers.map(answer => {
-                        return <Button>{answer}</Button>
+                        return <Button onClick={() => checkAnswer({ answer })}>{answer}</Button>
                     }
 
                     )}
-
                 </div>
+
+                {
+                    questionAnswered === true
+                        ? <Button onClick={() => nextQuestion()}>Next Question</Button>
+                        : ""
+                }
 
             </div>
         </>

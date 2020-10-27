@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Home } from "./Home"
 import { TriviaProvider } from "./providers/TriviaProvider"
 import "./css/Home.css"
+import { CurrentQuestion } from "./trivia/CurrentQuestion"
 
 export const Dashboard = () => {
 
@@ -17,7 +18,7 @@ export const Dashboard = () => {
     const showQuestions = () => (
         <div className="questionsContainer">
             <p>Questions</p>
-            {/* <QuestionList setActiveView={setActiveView} /> */}
+            <CurrentQuestion setActiveView={setActiveView} />
         </div>
     )
 

@@ -1,15 +1,15 @@
 import React, { useContext, useState, useEffect } from "react"
 import { Button } from "semantic-ui-react"
 import { shuffle } from "../helpers/Shuffle"
-import { TriviaContext, TriviaProvider } from "../providers/TriviaProvider"
-import { Trivia } from "./Trivia"
+import { TriviaContext } from "../providers/TriviaProvider"
 
-export const CurrentQuestion = ({ setActiveView }) => {
+export const CurrentQuestion = ({ setActiveView, userScore, setUserScore }) => {
 
     const { trivia } = useContext(TriviaContext)
     const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
     const [jumbledAnswers, setJumbledAnswers] = useState([])
     const [userAnswer, setUserAnswer] = useState("")
+    // const [userScore, setUserScore] = useState(0)
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
 
     const currentQuestion = trivia[currentQuestionNumber]
@@ -33,17 +33,19 @@ export const CurrentQuestion = ({ setActiveView }) => {
         setUserAnswer(chosenAnswer)
         if (chosenAnswer === currentQuestion.correct) {
             setAnsweredCorrectly(true)
-            console.log("true")
-            //  Increment score here
+            setUserScore(userScore + 1)
         } else {
             setAnsweredCorrectly(false)
-            console.log("false")
         }
     }
 
     const nextQuestion = () => {
         setUserAnswer("")
         setCurrentQuestionNumber(currentQuestionNumber + 1)
+    }
+
+    const finishRound = () => {
+        setActiveView("results")
     }
 
     if (!trivia) {
@@ -81,12 +83,17 @@ export const CurrentQuestion = ({ setActiveView }) => {
                             : ""
                     }
 
-
                 </div>
 
                 {
-                    !!userAnswer
+                    !!userAnswer && currentQuestionNumber < 9
                         ? <Button onClick={() => nextQuestion()}>Next Question</Button>
+                        : ""
+                }
+
+                {
+                    !!userAnswer && currentQuestionNumber >= 9
+                        ? <Button onClick={() => finishRound()}>See Results</Button>
                         : ""
                 }
 

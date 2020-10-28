@@ -8,6 +8,7 @@ export const Dashboard = () => {
 
     const [activeView, setActiveView] = useState("home")
     const [components, setComponents] = useState()
+    const [userScore, setUserScore] = useState(0)
 
     const showHome = () => (
         <div className="homeContainer">
@@ -17,13 +18,14 @@ export const Dashboard = () => {
 
     const showQuestions = () => (
         <div className="questionsContainer">
-            <CurrentQuestion setActiveView={setActiveView} />
+            <CurrentQuestion setActiveView={setActiveView} userScore={userScore} setUserScore={setUserScore} />
         </div>
     )
 
     const showResults = () => (
         <div className="resultsContainer">
             <p>Results</p>
+            <p>{userScore * 10}%</p>
             {/* <QuestionList setActiveView={setActiveView} /> */}
         </div>
     )

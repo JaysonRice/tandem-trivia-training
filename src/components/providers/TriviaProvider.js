@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { shuffle } from "../helpers/Shuffle"
 
 export const TriviaContext = React.createContext()
 
@@ -14,6 +15,11 @@ export const TriviaProvider = (props) => {
     useEffect(() => {
         getTrivia()
     }, [])
+
+    useEffect(() => {
+        setTrivia(shuffle(trivia))
+    }, [trivia])
+
 
     return (
         <TriviaContext.Provider value={{

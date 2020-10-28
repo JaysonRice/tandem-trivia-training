@@ -1,35 +1,18 @@
 import React, { useContext, useState, useEffect } from "react"
 import { Button } from "semantic-ui-react"
+import { shuffle } from "../helpers/Shuffle"
 import { TriviaContext, TriviaProvider } from "../providers/TriviaProvider"
 import { Trivia } from "./Trivia"
-
 
 export const CurrentQuestion = ({ setActiveView }) => {
 
     const { trivia } = useContext(TriviaContext)
-    const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1)
+    const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
     const [jumbledAnswers, setJumbledAnswers] = useState([])
-    const [questionAnswered, setQuestionAnswered] = useState(false)
+    const [userAnswer, setUserAnswer] = useState("")
+    const [answeredCorrectly, setAnsweredCorrectly] = useState()
 
-    const currentQuestion = trivia.find(question => question.id === currentQuestionNumber);
-
-    const shuffle = (arra1) => {
-        let ctr = arra1.length;
-        let temp;
-        let index;
-        // While there are elements in the array
-        while (ctr > 0) {
-            // Pick a random index
-            index = Math.floor(Math.random() * ctr);
-            // Decrease ctr by 1
-            ctr--;
-            // And swap the last element with it
-            temp = arra1[ctr];
-            arra1[ctr] = arra1[index];
-            arra1[index] = temp;
-        }
-        return arra1;
-    }
+    const currentQuestion = trivia[currentQuestionNumber]
 
     // Jumble all possible answers around
     useEffect(() => {
@@ -47,16 +30,19 @@ export const CurrentQuestion = ({ setActiveView }) => {
     }, [currentQuestionNumber])
 
     const checkAnswer = (chosenAnswer) => {
-        setQuestionAnswered(true)
-        if (chosenAnswer.answer === currentQuestion.correct) {
-            console.log("Correct")
+        setUserAnswer(chosenAnswer)
+        if (chosenAnswer === currentQuestion.correct) {
+            setAnsweredCorrectly(true)
+            console.log("true")
+            //  Increment score here
         } else {
-            console.log("Incorrect")
+            setAnsweredCorrectly(false)
+            console.log("false")
         }
     }
 
     const nextQuestion = () => {
-        setQuestionAnswered(false)
+        setUserAnswer("")
         setCurrentQuestionNumber(currentQuestionNumber + 1)
     }
 
@@ -70,16 +56,36 @@ export const CurrentQuestion = ({ setActiveView }) => {
                 <h3>{currentQuestion.question}</h3>
 
                 <div className="answersContainer">
-
-                    {jumbledAnswers.map(answer => {
-                        return <Button onClick={() => checkAnswer({ answer })}>{answer}</Button>
+                    {/* Only let the user choose 1 option and colors answers */}
+                    {
+                        !userAnswer
+                            ? jumbledAnswers.map(answer => {
+                                return <Button basic onClick={() => checkAnswer(answer)}>{answer}</Button>
+                            })
+                            : jumbledAnswers.map(answer => {
+                                return <Button basic className={answer === currentQuestion.correct
+                                    ? "green correct"
+                                    : "red incorrect"} >{answer}</Button>
+                            })
                     }
 
-                    )}
+                    {/* Ternaries to appear after a user has chosen an answer */}
+                    {!!answeredCorrectly && userAnswer !== ""
+                        ? <p>Correct, the answer was {userAnswer}.</p>
+                        : ""
+                    }
+
+                    {
+                        !answeredCorrectly && userAnswer !== ""
+                            ? <p>Wrong! You chose {userAnswer} while the correct answer was {currentQuestion.correct}.</p>
+                            : ""
+                    }
+
+
                 </div>
 
                 {
-                    questionAnswered === true
+                    !!userAnswer
                         ? <Button onClick={() => nextQuestion()}>Next Question</Button>
                         : ""
                 }

@@ -23,7 +23,7 @@ export const TriviaProvider = (props) => {
 
     return (
         <TriviaContext.Provider value={{
-            trivia
+            trivia, getTrivia
         }}>
             {props.children}
         </TriviaContext.Provider>

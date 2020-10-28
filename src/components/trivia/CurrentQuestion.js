@@ -3,13 +3,15 @@ import { Button } from "semantic-ui-react"
 import { shuffle } from "../helpers/Shuffle"
 import { TriviaContext } from "../providers/TriviaProvider"
 
-export const CurrentQuestion = ({ setActiveView, userScore, setUserScore }) => {
+let score = 0;
+
+export const CurrentQuestion = ({ setActiveView, setUserScore,
+    setRoundEnded }) => {
 
     const { trivia } = useContext(TriviaContext)
     const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
     const [jumbledAnswers, setJumbledAnswers] = useState([])
     const [userAnswer, setUserAnswer] = useState("")
-    // const [userScore, setUserScore] = useState(0)
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
 
     const currentQuestion = trivia[currentQuestionNumber]
@@ -29,11 +31,17 @@ export const CurrentQuestion = ({ setActiveView, userScore, setUserScore }) => {
         }
     }, [currentQuestionNumber])
 
+    useEffect(() => {
+        if (!!trivia) {
+        }
+    }, [currentQuestionNumber])
+
     const checkAnswer = (chosenAnswer) => {
         setUserAnswer(chosenAnswer)
         if (chosenAnswer === currentQuestion.correct) {
             setAnsweredCorrectly(true)
-            setUserScore(userScore + 1)
+            score++
+            setUserScore(score)
         } else {
             setAnsweredCorrectly(false)
         }
@@ -45,7 +53,9 @@ export const CurrentQuestion = ({ setActiveView, userScore, setUserScore }) => {
     }
 
     const finishRound = () => {
-        setActiveView("results")
+        setRoundEnded(true)
+        score = 0
+        setActiveView("home")
     }
 
     if (!trivia) {
@@ -58,6 +68,7 @@ export const CurrentQuestion = ({ setActiveView, userScore, setUserScore }) => {
                 <h3>{currentQuestion.question}</h3>
 
                 <div className="answersContainer">
+
                     {/* Only let the user choose 1 option and colors answers */}
                     {
                         !userAnswer
@@ -84,7 +95,7 @@ export const CurrentQuestion = ({ setActiveView, userScore, setUserScore }) => {
                     }
 
                 </div>
-
+                <p>{currentQuestionNumber + 1} / 10</p>
                 {
                     !!userAnswer && currentQuestionNumber < 9
                         ? <Button onClick={() => nextQuestion()}>Next Question</Button>

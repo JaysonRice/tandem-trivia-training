@@ -5,8 +5,7 @@ import { TriviaContext } from "../providers/TriviaProvider"
 
 let score = 0;
 
-export const Trivia = ({ setActiveView, setUserScore,
-    setRoundEnded }) => {
+export const Trivia = ({ setActiveView, setUserScore, setRoundEnded, numberOfQuestions }) => {
 
     const { trivia } = useContext(TriviaContext)
     const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
@@ -90,7 +89,7 @@ export const Trivia = ({ setActiveView, setUserScore,
                     }
 
                 </div>
-                <p>{currentQuestionNumber + 1} / 10</p>
+                <p>{currentQuestionNumber + 1} / {numberOfQuestions}</p>
                 {
                     !!userAnswer && currentQuestionNumber < 9
                         ? <Button onClick={() => nextQuestion()}>Next Question</Button>

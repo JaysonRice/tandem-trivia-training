@@ -10,18 +10,20 @@ export const Dashboard = () => {
     const [components, setComponents] = useState()
     const [userScore, setUserScore] = useState(0)
     const [roundEnded, setRoundEnded] = useState(false)
+    const [numberOfQuestions, setNumberOfQuestions] = useState(10)
 
     const showHome = () => (
         <div className="homeContainer">
             <Home setActiveView={setActiveView} roundEnded={roundEnded}
-                setRoundEnded={setRoundEnded} userScore={userScore} />
+                setRoundEnded={setRoundEnded} userScore={userScore} setUserScore={setUserScore}
+                numberOfQuestions={numberOfQuestions} />
         </div>
     )
 
     const showQuestions = () => (
         <div className="questionsContainer">
-            <Trivia setActiveView={setActiveView}
-                setUserScore={setUserScore} setRoundEnded={setRoundEnded} />
+            <Trivia setActiveView={setActiveView} setUserScore={setUserScore}
+                setRoundEnded={setRoundEnded} numberOfQuestions={numberOfQuestions} />
         </div>
     )
 

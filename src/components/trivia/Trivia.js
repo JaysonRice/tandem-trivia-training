@@ -91,13 +91,13 @@ export const Trivia = ({ setActiveView, setUserScore, setRoundEnded, numberOfQue
                 </div>
                 <p>{currentQuestionNumber + 1} / {numberOfQuestions}</p>
                 {
-                    !!userAnswer && currentQuestionNumber < 9
+                    !!userAnswer && currentQuestionNumber < numberOfQuestions - 1
                         ? <Button onClick={() => nextQuestion()}>Next Question</Button>
                         : ""
                 }
 
                 {
-                    !!userAnswer && currentQuestionNumber >= 9
+                    !!userAnswer && currentQuestionNumber >= numberOfQuestions - 1
                         ? <Button onClick={() => finishRound()}>See Results</Button>
                         : ""
                 }

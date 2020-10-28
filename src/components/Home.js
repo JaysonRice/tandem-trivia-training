@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Icon, Modal, ModalHeader } from "semantic-ui-react"
 import { TriviaContext } from './providers/TriviaProvider'
 
-export const Home = ({ setActiveView, roundEnded, setRoundEnded, userScore, setUserScore, numberOfQuestions }) => {
+export const Home = ({ setActiveView, roundEnded, setRoundEnded, userScore,
+    setUserScore, numberOfQuestions, setNumberOfQuestions }) => {
 
-    const { getTrivia } = useContext(TriviaContext)
+    const { trivia, getTrivia } = useContext(TriviaContext)
     const [modal, setModal] = useState(false)
     const toggle = () => setModal(!modal)
 
@@ -36,7 +37,12 @@ export const Home = ({ setActiveView, roundEnded, setRoundEnded, userScore, setU
             <section className="startTriviaContainer">
                 <p>Logo Here</p>
                 <Button icon labelPosition='right' onClick={() => setActiveView("questions")}>
-                    Start Trivia
+                    Start (10 Questions)
+                    <Icon name='right arrow' />
+                </Button>
+
+                <Button icon labelPosition='right' onClick={setNumberOfQuestions(trivia.length)} onClick={() => setActiveView("questions")}>
+                    All {trivia.length} Questions
                     <Icon name='right arrow' />
                 </Button>
 

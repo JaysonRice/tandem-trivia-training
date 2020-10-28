@@ -16,7 +16,7 @@ export const Dashboard = () => {
         <div className="homeContainer">
             <Home setActiveView={setActiveView} roundEnded={roundEnded}
                 setRoundEnded={setRoundEnded} userScore={userScore} setUserScore={setUserScore}
-                numberOfQuestions={numberOfQuestions} />
+                numberOfQuestions={numberOfQuestions} setNumberOfQuestions={setNumberOfQuestions} />
         </div>
     )
 

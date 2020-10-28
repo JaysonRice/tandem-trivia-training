@@ -17,7 +17,6 @@ export const Dashboard = () => {
 
     const showQuestions = () => (
         <div className="questionsContainer">
-            <p>Questions</p>
             <CurrentQuestion setActiveView={setActiveView} />
         </div>
     )

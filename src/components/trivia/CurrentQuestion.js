@@ -1,37 +1,18 @@
 import React, { useContext, useState, useEffect } from "react"
 import { Button } from "semantic-ui-react"
+import { shuffle } from "../helpers/Shuffle"
 import { TriviaContext, TriviaProvider } from "../providers/TriviaProvider"
 import { Trivia } from "./Trivia"
-
 
 export const CurrentQuestion = ({ setActiveView }) => {
 
     const { trivia } = useContext(TriviaContext)
-    const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1)
+    const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
     const [jumbledAnswers, setJumbledAnswers] = useState([])
-    // const [questionAnswered, setQuestionAnswered] = useState(false)
     const [userAnswer, setUserAnswer] = useState("")
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
 
-    const currentQuestion = trivia.find(question => question.id === currentQuestionNumber);
-
-    const shuffle = (arra1) => {
-        let ctr = arra1.length;
-        let temp;
-        let index;
-        // While there are elements in the array
-        while (ctr > 0) {
-            // Pick a random index
-            index = Math.floor(Math.random() * ctr);
-            // Decrease ctr by 1
-            ctr--;
-            // And swap the last element with it
-            temp = arra1[ctr];
-            arra1[ctr] = arra1[index];
-            arra1[index] = temp;
-        }
-        return arra1;
-    }
+    const currentQuestion = trivia[currentQuestionNumber]
 
     // Jumble all possible answers around
     useEffect(() => {

@@ -5,7 +5,7 @@ import { TriviaContext } from "../providers/TriviaProvider"
 
 let score = 0;
 
-export const CurrentQuestion = ({ setActiveView, setUserScore,
+export const Trivia = ({ setActiveView, setUserScore,
     setRoundEnded }) => {
 
     const { trivia } = useContext(TriviaContext)
@@ -28,11 +28,6 @@ export const CurrentQuestion = ({ setActiveView, setUserScore,
             allAnswers.push(currentQuestion.correct)
 
             setJumbledAnswers(shuffle(allAnswers))
-        }
-    }, [currentQuestionNumber])
-
-    useEffect(() => {
-        if (!!trivia) {
         }
     }, [currentQuestionNumber])
 

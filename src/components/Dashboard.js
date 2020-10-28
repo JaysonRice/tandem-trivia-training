@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import { Home } from "./Home"
 import { TriviaProvider } from "./providers/TriviaProvider"
 import "./css/Home.css"
-import { CurrentQuestion } from "./trivia/CurrentQuestion"
-
+import { Trivia } from "./trivia/Trivia"
 
 export const Dashboard = () => {
 
@@ -11,7 +10,6 @@ export const Dashboard = () => {
     const [components, setComponents] = useState()
     const [userScore, setUserScore] = useState(0)
     const [roundEnded, setRoundEnded] = useState(false)
-    // const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
 
     const showHome = () => (
         <div className="homeContainer">
@@ -22,7 +20,7 @@ export const Dashboard = () => {
 
     const showQuestions = () => (
         <div className="questionsContainer">
-            <CurrentQuestion setActiveView={setActiveView}
+            <Trivia setActiveView={setActiveView}
                 setUserScore={setUserScore} setRoundEnded={setRoundEnded} />
         </div>
     )

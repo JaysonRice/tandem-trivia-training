@@ -10,6 +10,7 @@ export const CurrentQuestion = ({ setActiveView }) => {
     const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1)
     const [jumbledAnswers, setJumbledAnswers] = useState([])
     const [questionAnswered, setQuestionAnswered] = useState(false)
+    const [answeredCorrectly, setAnsweredCorrectly] = useState()
 
     const currentQuestion = trivia.find(question => question.id === currentQuestionNumber);
 
@@ -49,9 +50,10 @@ export const CurrentQuestion = ({ setActiveView }) => {
     const checkAnswer = (chosenAnswer) => {
         setQuestionAnswered(true)
         if (chosenAnswer.answer === currentQuestion.correct) {
-            console.log("Correct")
+            setAnsweredCorrectly(true)
+            //  Increment score here
         } else {
-            console.log("Incorrect")
+            setAnsweredCorrectly(false)
         }
     }
 
@@ -70,12 +72,29 @@ export const CurrentQuestion = ({ setActiveView }) => {
                 <h3>{currentQuestion.question}</h3>
 
                 <div className="answersContainer">
+                    {/* Only let the user choose 1 option */}
+                    {
+                        questionAnswered === false
+                            ? jumbledAnswers.map(answer => {
+                                return <Button basic onClick={() => checkAnswer({ answer })}>{answer}</Button>
+                            })
+                            : jumbledAnswers.map(answer => {
+                                return <Button basic className={answer === currentQuestion.correct
+                                    ? "green correct"
+                                    : "red incorrect"} >{answer}</Button>
 
-                    {jumbledAnswers.map(answer => {
-                        return <Button onClick={() => checkAnswer({ answer })}>{answer}</Button>
+                                // {
+                                //     answeredCorrectly === true
+                                //         ? <p>The answer was not {}</p>
+                                //         : <p>Correct, the answer was {}</p>
+                                // }
+
+                            })
+
                     }
 
-                    )}
+
+
                 </div>
 
                 {

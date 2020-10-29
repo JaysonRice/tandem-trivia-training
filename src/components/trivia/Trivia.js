@@ -78,8 +78,9 @@ export const Trivia = ({ setActiveView, setUserScore, setRoundEnded, numberOfQue
                                     : "red incorrect answerButtons"} >{answer}</Button>
                             })
                     }
-                    <p>{currentQuestionNumber + 1} / {numberOfQuestions}</p>
+
                 </div>
+                <p className="questionCounter">{currentQuestionNumber + 1} / {numberOfQuestions}</p>
                 <div className="answerMessage">
                     {/* Ternaries to appear after a user has chosen an answer */}
 

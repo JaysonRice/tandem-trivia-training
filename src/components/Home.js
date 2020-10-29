@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Icon, Modal } from "semantic-ui-react"
+import { Button, Icon, Image, Modal } from "semantic-ui-react"
 import { TriviaContext } from './providers/TriviaProvider'
 
 export const Home = ({ setActiveView, roundEnded, setRoundEnded, userScore,
@@ -35,7 +35,9 @@ export const Home = ({ setActiveView, roundEnded, setRoundEnded, userScore,
     return (
         <>
             <section className="startTriviaContainer">
-                <p>Logo Here</p>
+
+                <Image class="triviaTrainerLogo" src="https://i.imgur.com/aI9vvPQ.png" alt="Trivia Trainer" ></Image>
+
                 <Button icon labelPosition='right' onClick={() => setActiveView("questions")}>
                     Start Round
                     <Icon name='right arrow' />

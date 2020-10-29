@@ -24,6 +24,10 @@
     flex-wrap: wrap;
 }
 
+.questionCounter{
+    text-align: center;
+}
+
 .answerMessage{
     margin: 0 0 1rem 0 ;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import { Home } from "./Home"
 import { TriviaProvider } from "./providers/TriviaProvider"
 import "./css/Home.css"
+import "./css/Trivia.css"
 import { Trivia } from "./trivia/Trivia"
 
 export const Dashboard = () => {

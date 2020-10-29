@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Icon, Modal, ModalHeader } from "semantic-ui-react"
+import { Button, Icon, Modal } from "semantic-ui-react"
 import { TriviaContext } from './providers/TriviaProvider'
 
 export const Home = ({ setActiveView, roundEnded, setRoundEnded, userScore,
-    setUserScore, numberOfQuestions, setNumberOfQuestions }) => {
+    setUserScore, numberOfQuestions }) => {
 
-    const { trivia, getTrivia } = useContext(TriviaContext)
+    const { getTrivia } = useContext(TriviaContext)
     const [modal, setModal] = useState(false)
     const toggle = () => setModal(!modal)
 
@@ -23,9 +23,9 @@ export const Home = ({ setActiveView, roundEnded, setRoundEnded, userScore,
     }
 
     const message = () => {
-        if (userScore === 10) {
+        if (userScore / numberOfQuestions === 1) {
             return <p>Perfect score! You are a trivia master.</p>
-        } else if (userScore >= 7) {
+        } else if ((userScore / numberOfQuestions) * 100 >= 70) {
             return <p>Great score, now push for 100%! </p>
         } else {
             return <p>Nice try but there's room for improvement.</p>
@@ -37,21 +37,23 @@ export const Home = ({ setActiveView, roundEnded, setRoundEnded, userScore,
             <section className="startTriviaContainer">
                 <p>Logo Here</p>
                 <Button icon labelPosition='right' onClick={() => setActiveView("questions")}>
-                    Start (10 Questions)
+                    Start Round
                     <Icon name='right arrow' />
                 </Button>
 
-                <Button icon labelPosition='right' onClick={setNumberOfQuestions(trivia.length)} onClick={() => setActiveView("questions")}>
-                    All {trivia.length} Questions
-                    <Icon name='right arrow' />
-                </Button>
+                <Modal size='mini' open={modal} toggle={toggle}>
+                    <Modal.Header toggle={toggle}>
+                        <p>Total Score: {Math.round((userScore / numberOfQuestions) * 100)}%</p>
 
-                <Modal open={modal} toggle={toggle}>
-                    <ModalHeader toggle={toggle}>
-                        <p>{(userScore / numberOfQuestions) * 100}%</p>
+                    </Modal.Header>
+                    <Modal.Content>
                         {message()}
+                    </Modal.Content>
+
+                    <Modal.Actions>
                         <Button onClick={restart}>Done</Button>
-                    </ModalHeader>
+                    </Modal.Actions>
+
                 </Modal>
 
             </section>

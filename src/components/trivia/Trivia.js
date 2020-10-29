@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
-import { Button } from "semantic-ui-react"
+import { Button, Message } from "semantic-ui-react"
 import { shuffle } from "../helpers/Shuffle"
 import { TriviaContext } from "../providers/TriviaProvider"
 
@@ -77,14 +77,24 @@ export const Trivia = ({ setActiveView, setUserScore, setRoundEnded, numberOfQue
                     }
 
                     {/* Ternaries to appear after a user has chosen an answer */}
+
                     {!!answeredCorrectly && userAnswer !== ""
-                        ? <p>Correct, the answer was {userAnswer}.</p>
+                        ? <Message
+                            className="positive"
+                            icon='check circle outline'
+                            header={'Correct, the answer was ' + userAnswer + '.'}
+                        />
                         : ""
                     }
 
                     {
                         !answeredCorrectly && userAnswer !== ""
-                            ? <p>Wrong! You chose {userAnswer} while the correct answer was {currentQuestion.correct}.</p>
+                            ? <Message
+                                className="error"
+                                icon='ban'
+                                header={'Wrong! You chose ' + userAnswer +
+                                    ' while the correct answer was ' + currentQuestion.correct + '.'}
+                            />
                             : ""
                     }
 

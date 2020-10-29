@@ -59,7 +59,10 @@ export const Trivia = ({ setActiveView, setUserScore, setRoundEnded, numberOfQue
     return (
         <>
             <div className="questionContainer">
-                <h3>{currentQuestion.question}</h3>
+
+                <div className="questionTitle">
+                    <h3>{currentQuestion.question}</h3>
+                </div>
 
                 <div className="answersContainer">
 
@@ -67,15 +70,17 @@ export const Trivia = ({ setActiveView, setUserScore, setRoundEnded, numberOfQue
                     {
                         !userAnswer
                             ? jumbledAnswers.map(answer => {
-                                return <Button basic onClick={() => checkAnswer(answer)}>{answer}</Button>
+                                return <Button basic className="answerButtons" onClick={() => checkAnswer(answer)}>{answer}</Button>
                             })
                             : jumbledAnswers.map(answer => {
                                 return <Button basic className={answer === currentQuestion.correct
-                                    ? "green correct"
-                                    : "red incorrect"} >{answer}</Button>
+                                    ? "green correct answerButtons"
+                                    : "red incorrect answerButtons"} >{answer}</Button>
                             })
                     }
-
+                    <p>{currentQuestionNumber + 1} / {numberOfQuestions}</p>
+                </div>
+                <div className="answerMessage">
                     {/* Ternaries to appear after a user has chosen an answer */}
 
                     {!!answeredCorrectly && userAnswer !== ""
@@ -97,9 +102,7 @@ export const Trivia = ({ setActiveView, setUserScore, setRoundEnded, numberOfQue
                             />
                             : ""
                     }
-
                 </div>
-                <p>{currentQuestionNumber + 1} / {numberOfQuestions}</p>
                 {
                     !!userAnswer && currentQuestionNumber < numberOfQuestions - 1
                         ? <Button onClick={() => nextQuestion()}>Next Question</Button>
@@ -113,6 +116,9 @@ export const Trivia = ({ setActiveView, setUserScore, setRoundEnded, numberOfQue
                 }
 
             </div>
+
+
+
         </>
     )
 }

@@ -4,4 +4,31 @@
     justify-content: center;
     align-items: center;
 }
-  
+
+.questionTitle{
+    display: flex;
+    justify-content: center;
+    margin: 0 0 1rem 0 ;
+}
+
+.questionContainer{
+    width: 45%;
+    height: 45%;
+    margin: 0 auto;
+}
+
+.answersContainer{
+    display: flex;
+    justify-content: space-around;
+    margin: 0 0 1rem 0 ;
+    flex-wrap: wrap;
+}
+
+.answerMessage{
+    margin: 0 0 1rem 0 ;
+}
+
+.answerButtons{
+    flex-basis: 48%;
+    margin-bottom: 1rem !important;
+}

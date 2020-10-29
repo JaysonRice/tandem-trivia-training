@@ -1,12 +1,11 @@
 import React, { useContext, useState, useEffect } from "react"
-import { Button } from "semantic-ui-react"
+import { Button, Message } from "semantic-ui-react"
 import { shuffle } from "../helpers/Shuffle"
 import { TriviaContext } from "../providers/TriviaProvider"
 
 let score = 0;
 
-export const Trivia = ({ setActiveView, setUserScore,
-    setRoundEnded }) => {
+export const Trivia = ({ setActiveView, setUserScore, setRoundEnded, numberOfQuestions }) => {
 
     const { trivia } = useContext(TriviaContext)
     const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
@@ -60,7 +59,10 @@ export const Trivia = ({ setActiveView, setUserScore,
     return (
         <>
             <div className="questionContainer">
-                <h3>{currentQuestion.question}</h3>
+
+                <div className="questionTitle">
+                    <h3>{currentQuestion.question}</h3>
+                </div>
 
                 <div className="answersContainer">
 
@@ -68,42 +70,56 @@ export const Trivia = ({ setActiveView, setUserScore,
                     {
                         !userAnswer
                             ? jumbledAnswers.map(answer => {
-                                return <Button basic onClick={() => checkAnswer(answer)}>{answer}</Button>
+                                return <Button basic className="answerButtons" onClick={() => checkAnswer(answer)}>{answer}</Button>
                             })
                             : jumbledAnswers.map(answer => {
                                 return <Button basic className={answer === currentQuestion.correct
-                                    ? "green correct"
-                                    : "red incorrect"} >{answer}</Button>
+                                    ? "green correct answerButtons"
+                                    : "red incorrect answerButtons"} >{answer}</Button>
                             })
                     }
 
+                </div>
+                <p className="questionCounter">{currentQuestionNumber + 1} / {numberOfQuestions}</p>
+                <div className="answerMessage">
                     {/* Ternaries to appear after a user has chosen an answer */}
+
                     {!!answeredCorrectly && userAnswer !== ""
-                        ? <p>Correct, the answer was {userAnswer}.</p>
+                        ? <Message
+                            className="positive"
+                            icon='check circle outline'
+                            header={'Correct, the answer was ' + userAnswer + '.'}
+                        />
                         : ""
                     }
 
                     {
                         !answeredCorrectly && userAnswer !== ""
-                            ? <p>Wrong! You chose {userAnswer} while the correct answer was {currentQuestion.correct}.</p>
+                            ? <Message
+                                className="error"
+                                icon='ban'
+                                header={'Wrong! You chose ' + userAnswer +
+                                    ' while the correct answer was ' + currentQuestion.correct + '.'}
+                            />
                             : ""
                     }
-
                 </div>
-                <p>{currentQuestionNumber + 1} / 10</p>
                 {
-                    !!userAnswer && currentQuestionNumber < 9
+                    !!userAnswer && currentQuestionNumber < numberOfQuestions - 1
                         ? <Button onClick={() => nextQuestion()}>Next Question</Button>
                         : ""
                 }
 
                 {
-                    !!userAnswer && currentQuestionNumber >= 9
+                    !!userAnswer && currentQuestionNumber >= numberOfQuestions - 1
                         ? <Button onClick={() => finishRound()}>See Results</Button>
                         : ""
                 }
 
             </div>
+
+
+
         </>
     )
 }

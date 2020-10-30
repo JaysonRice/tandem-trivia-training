@@ -25,8 +25,8 @@ export const Home = ({ setActiveView, roundEnded, setRoundEnded, userScore,
     const message = () => {
         if (userScore / numberOfQuestions === 1) {
             return <p>Perfect score! You are a trivia master.</p>
-        } else if ((userScore / numberOfQuestions) * 100 >= 70) {
-            return <p>Great score, now push for 100%! </p>
+        } else if ((userScore / numberOfQuestions) * 100 >= 60) {
+            return <p>Pretty good, now try for 100%! </p>
         } else {
             return <p>Nice try but there's room for improvement.</p>
         }

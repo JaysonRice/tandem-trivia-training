@@ -22,7 +22,7 @@ export const Dashboard = () => {
     )
 
     const showQuestions = () => (
-        <div className="questionsContainer">
+        <div className="triviaContainer">
             <Trivia setActiveView={setActiveView} setUserScore={setUserScore}
                 setRoundEnded={setRoundEnded} numberOfQuestions={numberOfQuestions} />
         </div>

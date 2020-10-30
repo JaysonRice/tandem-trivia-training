@@ -12,3 +12,4 @@ To start the application, run the following command in your terminal inside of t
 ```bash
 npm start
 ```
+

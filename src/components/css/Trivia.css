@@ -1,19 +1,19 @@
-.questionsContainer{
+.triviaContainer{
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: whitesmoke;
 }
 
 .questionTitle{
     display: flex;
     justify-content: center;
-    margin: 0 0 1rem 0 ;
 }
 
 .questionContainer{
-    width: 45%;
-    height: 45%;
+    width: 55%;
+    height: 55%;
     margin: 0 auto;
 }
 
@@ -22,17 +22,21 @@
     justify-content: space-around;
     margin: 0 0 1rem 0 ;
     flex-wrap: wrap;
+    border: solid 1px  #e0e0e0;
+    border-radius: 0.2rem;
+    box-shadow: 0px 2px 10px -10px black;
+    background-color: white;
 }
 
 .questionCounter{
     text-align: center;
 }
 
-.answerMessage{
-    margin: 0 0 1rem 0 ;
-}
-
 .answerButtons{
     flex-basis: 48%;
-    margin-bottom: 1rem !important;
+    margin:1em 0 1em 0 !important;
+}
+
+.answerMessage{
+    margin: 0 0 1rem 0 ;
 }

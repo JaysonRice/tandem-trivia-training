@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect } from "react"
 import { Home } from "./Home"
 import { TriviaProvider } from "./providers/TriviaProvider"
 import "./css/Home.css"
@@ -22,7 +22,7 @@ export const Dashboard = () => {
     )
 
     const showQuestions = () => (
-        <div className="questionsContainer">
+        <div className="triviaContainer">
             <Trivia setActiveView={setActiveView} setUserScore={setUserScore}
                 setRoundEnded={setRoundEnded} numberOfQuestions={numberOfQuestions} />
         </div>

@@ -2,6 +2,8 @@
 
 This repository is a code challenge issued by [Tandem](https://madeintandem.com/) to apply for one of their Apprenticeship Programs. Trivia Training is is a front-end React app that presents the user 10 multiple choice questions per a round for them to practice. Questions are randomized every round and come from the provided [JSON document](https://github.com/JaysonRice/tandem-trivia-training/blob/main/api/database.json) which are served with json-server.
 
+Deployed on Heroku [here.](https://tandem-trivia-training.herokuapp.com/)
+
 ![Trivia round example.](https://github.com/JaysonRice/tandem-trivia-training/blob/main/tandemTrivia.gif)
 
 ## Installation
